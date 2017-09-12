@@ -23,11 +23,11 @@ function render_schedule(courses){
             container.appendChild(table);
             table.appendChild(tbody);
             var table_header = tbody.insertRow(-1);
-            table_header.innerHTML = '<td><b>Block</b></td><td><b>Instructor</b></td><td><b>Avail/Ttl</b> (<small>Wl</small>, <small>Rsv</small>)</td>';
+            table_header.innerHTML = '<td><b>Block</b></td><td><b>Instructor</b></td><td><b>Avail/Total</b> (<small><abbr title="Number of people in waitlist">WL</abbr></small>/<small><abbr title="Waitlist capacity">Reserved</abbr></small>)</td>';
             for(j=0;j<courses[course_no].length;j++){
                 var off = courses[course_no][j];
                 var row_off = tbody.insertRow(-1);
-                row_off.innerHTML = `<td>${off['block']}</td><td>${off['instructor']}</td><td>${off['available']}/${off['limit']} (<small>${off['waitlist']}</small>, <small>${off['reserved']}</small>)</td>`;
+                row_off.innerHTML = `<td>${off['block']}</td><td>${off['instructor']}</td><td>${off['available']}/${off['limit']} (<small>${off['waitlist']}</small>/<small>${off['reserved']}</small>)</td>`;
                 if(off['available']<=0) row_off.setAttribute('style', 'opacity: 0.5');
             }
         }catch(e){}
