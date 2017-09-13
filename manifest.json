@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Easier CC Banner",
-    "description": "This extension makes the filter function of course catalog in CC Banner much easier to use",
+    "description": "Using that stupid CC Banner has never been easier.",
     "version": "1.0",
     "author": "Programming: Han You/Icon: Kon Aoki",
     "background": {
@@ -17,6 +17,9 @@
             ]
         }
     ],
+    "web_accessible_resources": [
+        "html/*"
+    ],
     "icons": {
         "16": "icons/16.png",
         "48": "icons/48.png",
@@ -27,6 +30,7 @@
     },
     "permissions": [
         "https://banssbp.coloradocollege.edu/*",
+        "http://banssbp.coloradocollege.edu/*",
         "webNavigation",
         "storage"
     ]
