@@ -8,6 +8,21 @@
         //main menu
         {
             "matches": [
+                "https://banssbp.coloradocollege.edu/prod/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu"
+            ],
+            "run_at": "document_end",
+            "js": [
+            "js/jquery-3.2.1.min.js",
+                "mainmenu.js"
+            ],
+            "css": [
+                //"style/main.css",
+                "style/Montserrat.css"
+            ]
+        },
+        //student menu
+        {
+            "matches": [
                 "https://banssbp.coloradocollege.edu/prod/*.P_GenMenu?name=zmenu.P_StuMainMnu"
             ],
             "run_at": "document_end",
@@ -16,7 +31,7 @@
                 "menu.js"
             ],
             "css": [
-                "style/main.css",
+                //"style/main.css",
                 "style/Montserrat.css"
             ]
         },

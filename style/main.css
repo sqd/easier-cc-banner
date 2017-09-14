@@ -4,45 +4,39 @@
     font-style: normal;
 }
 .list:hover{
-	text-decoration: none;
+    text-decoration: none;
 
 }
 .list-container:hover {
     background-color:#eee;
-    transition:0.3s;
+    transition:0.1s;
 }
 .list-container {
     text-align: center;
-
     margin-top: -5px;
-
     font-family: Montserrat;
-
-    padding: 14px;
-
-    min-height: 37px;
+    height: 80px;
 }
 .list-title {
     font-size: 17px;
-
-    line-height: 27px;
-        
+    line-height: 51px;
     text-transform: uppercase;
 }
 .list-description {
     color: #404040;
-        
     font-size: 10px;
-
-    line-height: 13px;
+    line-height: 10px;
 }
 .menu-cell {
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
+    /* border-bottom: 1px solid black; */
+    /* border-top: 1px solid black; */
     border-collapse: collapse;
     width: 50%;
 }
 .menu-table {
     border-collapse: collapse;
     width: 100%;
+}
+.menuplaintable{
+    width:100%;
 }

@@ -41,3 +41,5 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
     container.innerHTML = `<a class="list" href="javascript:0;"> <div class="list-container"> <div class="list-title" style="color:green;">Easier CC Banner Course Scheduler</div> <div class="list-description" style="color:green;">Scheduling courses has never been easier.</div> </div> </a>`;
 }
 $(document.body.children[1]).remove();
+
+$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`);
