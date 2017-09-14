@@ -51,7 +51,11 @@
             "run_at": "document_end",
             "js": [
                 "js/jquery-3.2.1.min.js",
+                "js/loading-bar.min.js",
                 "catalog.js"
+            ],
+            "css": [
+                "style/loading-bar.css"
             ]
         }
     ],
