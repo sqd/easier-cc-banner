@@ -3,7 +3,7 @@
     "name": "Easier CC Banner",
     "description": "Using that stupid CC Banner has never been easier.",
     "version": "1.0",
-    "author": "Programming: Han You/Icon: Kon Aoki",
+    "author": "Han You/Kon Aoki",
     "content_scripts": [
         //main menu
         {

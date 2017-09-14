@@ -3,7 +3,6 @@ function assert(c){
 }
 
 function render_schedule(courses){
-    $('#cceasier-loading-indicator').text('Easier CC Banner: Rendering...');
     var poss_title = $('b');
     for(i=0;i<poss_title.length;i++)
         try{
@@ -32,18 +31,19 @@ function render_schedule(courses){
                 if(off['available']<=0) row_off.setAttribute('style', 'opacity: 0.5');
             }
         }catch(e){}
-    $('#cceasier-loading-indicator').html('Easier CC Banner: <span style="color:green;">Enabled</span>.');
 }
 
 function get_course_schedule_html(callback){
-    $('#cceasier-loading-indicator').html('Easier CC Banner: Loading... <small>(first loading usually takes about 10s)</small>');
-    var bar = new ldBar('#cceasier-loading-indicator-progress');
+    $('#progress-container').eq(0).html('<div id="progress" class="ldBar label-center" data-value="0" data-preset="circle"></div>');
+    //$('#progress-container').eq(0).html(`<div id="progress" class="ldBar" data-value="0" data-preset="fill" data-img="${chrome.runtime.getURL('img/icon500x500.png')}"></div>`);
+
+    var bar = new ldBar('#progress');
     var start_time = new Date().getTime();
     var timer = setInterval(function(){
         var t = (new Date().getTime() - start_time) / 1000;
-        var p = 100*(1-Math.pow(0.8, t));
+        var p = 100*(1-Math.pow(0.85, t));
         bar.set(p);
-    }, 1000);
+    }, 1500);
     var site_map_link = $("a:contains('SITE')")[0];
     $.get(site_map_link.getAttribute('href'), function(html){
         var re = /href="(\w+\.p_disp_dyn_sched)"/;
@@ -63,7 +63,7 @@ function get_course_schedule_html(callback){
                 var post_data = `term_in=${term1}&term_in=${term2}&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_type=dummy&sel_rtng=dummy&sel_ptrm=dummy&sel_attr=dummy&sel_subj=%25&sel_crse=&sel_title=&sel_ptrm=%25&sel_instr=%25&sel_attr=%25&sel_vcncy=%25&sel_type=%25&sel_camp=%25&sel_rtng=%25&sel_schd=%25&sel_insm=%25&begin_hh=00&begin_mi=00&begin_ap=x&end_hh=00&end_mi=00&end_ap=xe`;
                 $.post(form_url, post_data, function(html){
                     clearInterval(timer);
-                    bar.set(100);
+                    $('#progress').remove();
                     callback(html);
                 });
             });
@@ -72,7 +72,6 @@ function get_course_schedule_html(callback){
 }
 
 function parse_schedule_html(html){
-    $('#cceasier-loading-indicator').text('Easier CC Banner: Parsing...');
     html.replace(/<script>/g, '<div hidden>');
     html.replace(/<\/script>/g, '</div>');
     var container = document.createElement('div');
@@ -104,18 +103,7 @@ function parse_schedule_html(html){
 }
 
 function main(){
-    var header_col = $('.pldefault:contains(Catalog Entries)')[0];
-    var loading_indicator = document.createElement('h3');
-    loading_indicator.setAttribute('id', 'cceasier-loading-indicator');
-    header_col.appendChild(loading_indicator);
-
-    var loading_bar = document.createElement('div');
-    loading_bar.setAttribute('id', 'cceasier-loading-indicator-progress');
-    loading_bar.setAttribute('class', 'ldBar label-center');
-    loading_bar.setAttribute('data-value', '0');
-    loading_bar.setAttribute('data-preset', 'circle');
-    header_col.appendChild(loading_bar);
-
+    $('.pldefault:contains(Catalog Entries)').eq(0).attr('id', 'progress-container').html('');
     try{
         if(new Date().getTime() - parseInt(localStorage.getItem('cceasier-timestamp')) < 3600000){
             render_schedule(JSON.parse(localStorage.getItem('cceasier-schedule')));
