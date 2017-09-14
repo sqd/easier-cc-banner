@@ -1,11 +1,4 @@
 //STYLE
-
-$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/mdl/material.min.css')}">`);
-$(document.head).append(`<script src="${chrome.runtime.getURL('style/mdl/material.min.js')}"></script>`);
-$(document.head).append('<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">');
-$(document.head).append('<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600" rel="stylesheet">');
-$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`);
-
 $('.pagetitlediv').remove();
 
 

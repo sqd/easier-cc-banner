@@ -10,10 +10,16 @@
     "content_scripts": [
         {
             "matches": [
-                "https://banssbp.coloradocollege.edu/*"
+                "https://banssbp.coloradocollege.edu/prod/*.P_GenMenu?name=zmenu.P_StuMainMnu"
             ],
+            "run_at": "document_end",
             "js": [
-                "jquery-3.2.1.min.js"
+                "jquery-3.2.1.min.js",
+                "menu.js"
+            ],
+            "css": [
+                "style/main.css",
+                "style/Montserrat.css"
             ]
         }
     ],

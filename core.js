@@ -39,6 +39,7 @@ chrome.webNavigation.onCompleted.addListener(function (details) {
     ]}
 );    
 
+/*
 chrome.webNavigation.onCompleted.addListener(function (details) {
     chrome.tabs.executeScript(null, {file: "menu.js"});
 }, {
@@ -48,3 +49,4 @@ chrome.webNavigation.onCompleted.addListener(function (details) {
         pathSuffix: 'P_GenMenu' }
     ]}
 );    
+*/
