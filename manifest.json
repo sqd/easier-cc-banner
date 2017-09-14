@@ -28,6 +28,7 @@
             "run_at": "document_end",
             "js": [
                 "js/jquery-3.2.1.min.js",
+                "js/textcomplete.min.js",
                 "menu.js"
             ],
             "css": [
@@ -54,6 +55,7 @@
             "run_at": "document_end",
             "js": [
                 "js/jquery-3.2.1.min.js",
+                "js/load_schedule.js",
                 "catalog_filter.js",
                 "filter.js"
             ]
@@ -67,6 +69,7 @@
             "js": [
                 "js/jquery-3.2.1.min.js",
                 "js/loading-bar.min.js",
+                "js/load_schedule.js",
                 "catalog.js"
             ],
             "css": [

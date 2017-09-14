@@ -36,7 +36,7 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
 {
     var container = document.createElement('div');
     var cell = table.insertRow(0).insertCell(0);
-    $(cell).attr('colspan', 2).html('<div id="cceasier-tool">wawawa</div>');
+    $(cell).attr('colspan', 2).html('<div id="cceasier-tool" style="width:100%;"></div>');
     $('#cceasier-tool').toggle().load(chrome.runtime.getURL('html/tool_div.html'));
 
     container = document.createElement('div');
