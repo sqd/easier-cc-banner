@@ -93,7 +93,7 @@ function parse_schedule_html(html){
 }
 
 function main(){
-    $(document.head).append('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">');
+    
 
     var header_col = $('.pldefault:contains(Catalog Entries)')[0];
     var loadind_indicator = document.createElement('h3');
