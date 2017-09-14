@@ -36,8 +36,16 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
 {
     var container = document.createElement('div');
     var cell = table.insertRow(0).insertCell(0);
+    $(cell).attr('colspan', 2).html('<div id="cceasier-tool">wawawa</div>');
+    $('#cceasier-tool').toggle().load(chrome.runtime.getURL('html/tool_div.html'));
+
+    container = document.createElement('div');
+    cell = table.insertRow(0).insertCell(0);
     $(cell).attr('colspan', 2).attr('class', 'menu-cell');
     cell.appendChild(container);
     container.innerHTML = `<a class="list" href="javascript:0;"> <div class="list-container"> <div class="list-title" style="color:green;">Easier CC Banner Course Scheduler</div> <div class="list-description" style="color:green;">Scheduling courses has never been easier.</div> </div> </a>`;
+    $(container.children[0]).click(function(){
+        $('#cceasier-tool').slideToggle();
+    });
 }
 $(document.body.children[1]).remove();
