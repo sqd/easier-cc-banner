@@ -49,3 +49,5 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
     });
 }
 $(document.body.children[1]).remove();
+
+$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`);
