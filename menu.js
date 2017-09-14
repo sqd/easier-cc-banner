@@ -48,6 +48,8 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
     $(container.children[0]).click(function(){
         $('#cceasier-tool').slideToggle();
     });
+
+    
 }
 
 //remove the orignal menu
