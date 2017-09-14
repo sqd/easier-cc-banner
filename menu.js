@@ -33,12 +33,13 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
     cell.setAttribute('class', 'menu-cell');
     cell.appendChild(div);
 });
+
+//easier cc course tool
 {
     var container = document.createElement('div');
     var cell = table.insertRow(0).insertCell(0);
     $(cell).attr('colspan', 2).html('<div id="cceasier-tool" style="width:100%;"></div>');
     $('#cceasier-tool').toggle().load(chrome.runtime.getURL('html/tool_div.html'));
-
     container = document.createElement('div');
     cell = table.insertRow(0).insertCell(0);
     $(cell).attr('colspan', 2).attr('class', 'menu-cell');
@@ -48,6 +49,8 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
         $('#cceasier-tool').slideToggle();
     });
 }
+
+//remove the orignal menu
 $(document.body.children[1]).remove();
 
 $(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`);

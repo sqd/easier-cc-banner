@@ -12,7 +12,7 @@
             ],
             "run_at": "document_end",
             "js": [
-            "js/jquery-3.2.1.min.js",
+                "js/jquery-3.2.1.min.js",
                 "mainmenu.js"
             ],
             "css": [
@@ -29,6 +29,7 @@
             "js": [
                 "js/jquery-3.2.1.min.js",
                 "js/textcomplete.min.js",
+                "js/load_schedule.js",
                 "menu.js"
             ],
             "css": [
