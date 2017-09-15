@@ -131,6 +131,21 @@ function show_modal_window(schedule) {
             }
         });
     }
+
+
+    //modal table style
+    $('#result_modal_table').css('width','100%');
+    var modalTableTrs = $('#result_modal_table').find('tr');
+    console.log(modalTableTrs);
+    var modalTableTds = modalTableTrs.find('td');
+    $(modalTableTrs[0]).css('height','auto');
+    $(modalTableTds[0]).css('width','5%');
+    for(var i=0; i<(modalTableTds.length-modalTableTds.length)/modalTableTrs.length; i++)
+    {
+        var x = (modalTableTds.length-modalTableTds.length)/modalTableTds.length;
+        $(modalTableTds[i+1]).css('width',(x-5/(modalTableTds.length-modalTableTds.length)/modalTableTrs.length).toString()+'%');
+    }
+    
     //export
     {
         $('#btn_export').click(function(){
@@ -172,15 +187,11 @@ function on_tool_loaded(){
 
     //confirm button positioning
     $('#course_pool_confirm').css('left',($(window).width()*0.75-35-25).toString()+'px' );
-    //console.log('b'+$(document.body).width());
-    //console.log("before: "+($($(document.body).width()).toString()+'px'));
-    //console.log( ($(document.body).width()*0.75-20-25).toString());
-    
     $( window ).resize(function() {
         $('#course_pool_confirm').css('left',($(window).width()*0.75-35-25).toString()+'px' );
-        console.log('a'+$(document.body).width());
-        //console.log("after: "+($($(document.body).width()).toString()+'px'));
     });
+
+
 
     //transition & progress bar
     {
@@ -289,6 +300,9 @@ function on_schedule_loaded(schedule) {
         });
         key.filter = ev => true;
     }
+
+
+
 }
 
 //remove the orignal menu
