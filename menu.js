@@ -1,6 +1,10 @@
+//check if need relogin
+if(document.getElementById('UserID')){
+    window.location.href = 'https://cas.coloradocollege.edu/cas/login?service=https%3A%2F%2Fbanssop.coloradocollege.edu%3A443%2Fssomanager%2Fc%2FSSB';
+}
+
 //STYLE
 $('.pagetitlediv').remove();
-
 
 var table = document.createElement('table');
 table.setAttribute('class', 'menu-table');
@@ -8,8 +12,6 @@ var table_container = document.createElement('div');
 document.body.appendChild(table_container);
 table_container.appendChild(table);
 table.appendChild(document.createElement('tbody'));
-
-
 
 var fst = false;
 $('.menuplaintable').eq(0).find('tr').each(function() {
