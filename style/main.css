@@ -114,18 +114,19 @@ body ul a:hover{
 #course_pool_confirm{
     width: 50px;
     height: 50px;
-    background: white;
+    background: #4285f4;
     border-radius: 100px;
-    top: -27px;
-    right: -20%;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
-    /* border: none; */
+        top: 262px;
+    /*right: -20%;*/
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
+    border:none;
+    position: absolute !important;
 }
 #course_pool_confirm img{
-        width: 100%;
+        width: 80%;
     height: auto;
     /* color: black; */
-    filter: invert();
+    /*filter: invert();*/
 }
 
 #loading_bar_container{

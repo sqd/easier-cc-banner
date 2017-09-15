@@ -167,6 +167,18 @@ function on_tool_loaded(){
         $("#course_pool_confirm").append('<img src="' + arrowImgUrl + '"></img>');
     }
 
+    //confirm button positioning
+    $('#course_pool_confirm').css('left',($(window).width()*0.75-35-25).toString()+'px' );
+    //console.log('b'+$(document.body).width());
+    //console.log("before: "+($($(document.body).width()).toString()+'px'));
+    //console.log( ($(document.body).width()*0.75-20-25).toString());
+    
+    $( window ).resize(function() {
+        $('#course_pool_confirm').css('left',($(window).width()*0.75-35-25).toString()+'px' );
+        console.log('a'+$(document.body).width());
+        //console.log("after: "+($($(document.body).width()).toString()+'px'));
+    });
+
     //transition & progress bar
     {
         $('#course_pool').css('background-color', '#b5b5b5 !important');
