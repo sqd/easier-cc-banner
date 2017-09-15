@@ -1,3 +1,7 @@
+body{
+        margin-left: 0 !important;
+    margin-right: 0 !important;
+}
 .list{
     text-decoration: none !important;
     color: black !important;
@@ -39,4 +43,70 @@
 }
 .menuplaintable{
     width:100%;
+}
+
+#course_pool{
+        width: 50%;
+        resize: none;
+        left: 25%;
+        z-index: auto;
+        position: relative;
+        line-height: normal;
+        font-size: 14.4px;
+        transition: none;
+        background: transparent !important;
+        padding: 2px;
+        border: 1px solid rgba(0, 0, 0, 0);
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+        transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+#course_pool:hover{
+    /*box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);*/
+    }
+
+body ul {
+    left: 25% !important;
+    top: 290px !important;
+    width: calc(50% + 7px);
+    background-color: rgb(255, 255, 255);
+    /* border: 1px solid rgba(0, 0, 0, 0); */
+    padding: 2px;
+    vertical-align: top;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    /* margin-top: 0; */
+    padding: 0;
+}
+
+body ul:hover{
+    /*box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);*/
+}
+.hover-over-boxshadow{
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
+}
+body ul li{
+
+}
+body ul li:hover{
+        background-color: #eee;
+        cursor: default;
+}
+body ul a:hover{
+    color:black;
+    text-decoration: none;
+}
+.dropdown-menu li {
+    list-style-type: none;
+    padding: 2px;
+    border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.textcomplete-header{
+    display: none;
+    /* visibility: hidden; */
+    height: 0;
+}
+.textcomplete-footer{
+    display:none;
 }

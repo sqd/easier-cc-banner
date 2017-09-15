@@ -164,10 +164,25 @@ function on_tool_loaded(){
             modal_window.open();
         });
     });
-    $('#course_pool').click(function(){console.log('hihi')});
+
+    $(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`);
+
+    //course scheduler style
+
+    $("#course_pool").click(function(){
+
+        $(".dropdown-menu").addClass("hover-over-boxshadow");
+        $("#course_pool").addClass("hover-over-boxshadow");
+        console.log('clicked');
+    });
+    $("#course_pool").blur(function(){
+        $(".dropdown-menu").css('display','none');
+        $(".dropdown-menu").removeClass("hover-over-boxshadow");
+        $("#course_pool").removeClass("hover-over-boxshadow");
+        console.log('unfocused');
+    });
 }
 
 //remove the orignal menu
 $(document.body.children[1]).remove();
 
-$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`);
