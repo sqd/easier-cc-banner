@@ -250,12 +250,21 @@ function on_schedule_loaded(schedule) {
         {
             match: /(^|,)([^,]+)$/,
             search: function (term, callback) {
+                if(/[A-Z][A-Z]\d{0,3}$/.test(term)){
+                    var ans = [];
+                    for(i=0;i<course_list.length;i++){
+                        if(course_list[i]['course_code'].startsWith(term)){
+                            ans.push(course_list[i]['course_code']);
+                            if(ans.length >= 5) break;
+                        }
+                    }
+                    callback(ans);
+                    return;
+                }
                 var result = fuse.search(term);
                 result = result.slice(0, 5);
                 var match = [];
-                $.each(result, function () {
-                    match.push(this['course_code']);
-                });
+                $.each(result, function () { match.push(this['course_code']); });
                 callback(match);
             },
             template: function (course_code) {
