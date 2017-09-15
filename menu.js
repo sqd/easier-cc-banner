@@ -233,6 +233,12 @@ function on_schedule_loaded(schedule) {
     }
 
     //preprocess schedule data
+    schedule['JD101'] = [{
+        "course_no": 'JD101',
+        "course_title": "Elementary Jedi-ing. [Prerequisite: Travelling to Dagobah. Be prepared for your professor's death.]",
+        "instructor": 'Yoda',
+        "block": "never"
+    }];
     {
         var course_list = [];
         var instructor_sum = {};
