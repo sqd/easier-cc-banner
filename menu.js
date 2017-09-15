@@ -59,6 +59,7 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
+
 function show_modal_window(schedule) {
     //preprocess data
     {
