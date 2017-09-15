@@ -43,6 +43,7 @@ function parse_schedule_html(html){
             course_no = re.exec(course_no)[0];
             var course = {
                 "course_no": course_no,
+                "course_title": cols[3].innerText,
                 "block": cols[4].innerText,
                 "instructor": cols[8].innerText,
                 "limit": cols[9].innerText,

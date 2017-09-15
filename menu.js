@@ -35,13 +35,18 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
 });
 
 //easier cc course tool
-{
+function load_tool(){
     var container = document.createElement('div');
     var cell = table.insertRow(0).insertCell(0);
     $(cell).attr('colspan', 2).html('<div id="cceasier-tool" style="width:100%;"></div>');
-    $('#cceasier-tool').toggle().load(chrome.runtime.getURL('html/tool_div.html'));
-    container = document.createElement('div');
-    cell = table.insertRow(0).insertCell(0);
+    $('#cceasier-tool').toggle().load(chrome.runtime.getURL('html/tool_div.html'), on_tool_loaded);
+}
+
+load_tool();
+
+function on_tool_loaded(){
+    var container = document.createElement('div');
+    var cell = table.insertRow(0).insertCell(0);
     $(cell).attr('colspan', 2).attr('class', 'menu-cell');
     cell.appendChild(container);
     container.innerHTML = `<a class="list" href="javascript:0;"> <div class="list-container"> <div class="list-title" style="color:green;">Easier CC Banner Course Scheduler</div> <div class="list-description" style="color:green;">Scheduling courses has never been easier.</div> </div> </a>`;
@@ -49,7 +54,57 @@ $('.menuplaintable').eq(0).find('tr').each(function() {
         $('#cceasier-tool').slideToggle();
     });
 
-    
+    $('#cceasier-tool *').prop('disabled', true);
+    get_schedule(schedule => {
+        $('#cceasier-tool *').prop('disabled', false);
+        var course_list = [];
+        $.each(schedule, course_code => {
+            $.each(schedule[course_code], function() {
+                course_list.push({
+                    "course_code": this["course_no"],
+                    "course_title": this["course_title"],
+                    "instructor": this["instructor"],
+                });
+            });
+        });
+        var fuse = new Fuse(course_list, {
+            shouldSort: true,
+            threshold: 0.4,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 32,
+            minMatchCharLength: 2,
+            keys: [
+                "course_code",
+                "instructor",
+                "course_title"]
+        });
+
+        new Textcomplete(new Textcomplete.editors.Textarea(document.getElementById('course_pool'))).register([
+            {
+                match: /(^|,)([^,]+)$/,
+                search: function (term, callback) {
+                    var result = fuse.search(term);
+                    result = result.slice(0, 5);
+                    var match = [];
+                    $.each(result, function(){
+                        match.push(this['course_code']);
+                    });
+                    callback(match);
+                },
+                template: function (course_code) {
+                    var prof = '';
+                    $.each(schedule[course_code], function(){ prof += this['instructor'] + ', '; });
+                    prof = prof.slice(0, -2);
+                    return `<p><b>${course_code}</b><small>(${prof})</small></p>${schedule[course_code][0]['course_title']}<p></p>`
+                },
+                replace: function (course_code) {
+                    return '$1' + course_code + ',';
+                }
+            }
+        ]);
+    });
+
 }
 
 //remove the orignal menu

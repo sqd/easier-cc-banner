@@ -29,6 +29,7 @@
             "js": [
                 "js/jquery-3.2.1.min.js",
                 "js/textcomplete.min.js",
+                "js/fuse.min.js",
                 "js/load_schedule.js",
                 "menu.js"
             ],
