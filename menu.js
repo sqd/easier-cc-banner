@@ -43,6 +43,7 @@ function load_tool(){
 }
 
 load_tool();
+$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/textcomplete-menu.css')}">`);
 
 function on_tool_loaded(){
     var container = document.createElement('div');
@@ -58,14 +59,23 @@ function on_tool_loaded(){
     get_schedule(schedule => {
         $('#cceasier-tool *').prop('disabled', false);
         var course_list = [];
-        $.each(schedule, course_code => {
-            $.each(schedule[course_code], function() {
-                course_list.push({
-                    "course_code": this["course_no"],
-                    "course_title": this["course_title"],
-                    "instructor": this["instructor"],
-                });
+        var instructor_sum = {};
+        $.each(schedule, function() {
+            var prof = '';
+            var hash = {};
+            $.each(schedule[this[0]['course_no']], function(){
+                if(hash[this['instructor']] == null){
+                    prof += this['instructor'] + ', ';
+                    hash[this['instructor']] = true;
+                }
             });
+            prof = prof.slice(0, -2);
+            course_list.push({
+                "course_code": this[0]["course_no"],
+                "course_title": this[0]["course_title"],
+                "instructor": prof
+            });
+            instructor_sum[this[0]['course_no']] = prof;
         });
         var fuse = new Fuse(course_list, {
             shouldSort: true,
@@ -93,10 +103,7 @@ function on_tool_loaded(){
                     callback(match);
                 },
                 template: function (course_code) {
-                    var prof = '';
-                    $.each(schedule[course_code], function(){ prof += this['instructor'] + ', '; });
-                    prof = prof.slice(0, -2);
-                    return `<p><b>${course_code}</b><small>(${prof})</small></p>${schedule[course_code][0]['course_title']}<p></p>`
+                    return `<p><b>${course_code}</b> <small>(${instructor_sum[course_code]})</small></p>${schedule[course_code][0]['course_title']}<p></p>`
                 },
                 replace: function (course_code) {
                     return '$1' + course_code + ',';
