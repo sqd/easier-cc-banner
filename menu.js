@@ -45,6 +45,50 @@ function load_tool(){
 load_tool();
 $(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/textcomplete-menu.css')}">`);
 
+function show_modal_window(schedule) {
+    var modal_window = $('[data-remodal-id=result_modal]').remodal();
+    var courses = $('#course_pool').val().split(',');
+    var hash = {};
+    $.each(courses, function () { hash[this] = true; });
+    courses = [];
+    $.each(hash, function (k, v) { courses.push(k); });
+    var departs = {};
+    $.each(courses, function () {
+        var course_code = this;
+        if (schedule[course_code] == null) return;
+        var depart_code = course_code.slice(0, 2);
+        if (departs[depart_code] == null) departs[depart_code] = [[], [], [], [], [], [], [], []];
+        $.each(schedule[course_code], function () {
+            var block = parseInt(this['block']);
+            if (isNaN(block)) return;
+            departs[depart_code][block - 1].push(this);
+        });
+    });
+    var modal_table = $('#result_modal_table')[0];
+    modal_table.children[0].innerHTML = '';
+    for (i = 0; i < 9; i++) modal_table.insertRow(-1);
+    for (i = 1; i < 9; i++) {
+        var cell = modal_table.rows[i].insertCell(-1);
+        cell.innerText = i;
+    }
+    modal_table.rows[0].insertCell(-1);
+    var depart2name = { "AN": "Anthropology", "AR": "Arabic", "AH": "Art History", "AS": "Art Studio", "PA": "Asian Studies", "BY": "Biology", "CH": "Chemistry", "CN": "Chinese Language", "CL": "Classics", "CO": "Comparative Literature", "CP": "Computer Science", "DS": "Dance Studio", "DA": "Dance Theory", "EC": "Economics", "ED": "Education", "EN": "English", "EV": "Environmental Program", "FG": "Feminist & Gender Studies", "FM": "Film and Media Studies", "FS": "Film Studies", "FR": "French", "GS": "General Studies", "GY": "Geology", "GR": "German", "HE": "Hebrew", "HY": "History", "HK": "Human Biology and Kinesiology", "IT": "Italian", "JA": "Japanese", "MA": "Mathematics", "MB": "Molecular Biology", "MU": "Music", "BE": "Organismal Biology and Ecology", "PH": "Philosophy", "PC": "Physics", "PS": "Political Science", "PG": "Portuguese", "PY": "Psychology", "RM": "Race, Ethnicity, and Migration", "RE": "Religion", "RU": "Russian", "RS": "Russian & Eurasian Studies", "SO": "Sociology", "SW": "Southwest Studies", "SP": "Spanish", "HS": "Studies in Humanities", "NS": "Studies in Natural Science", "TH": "Theatre" };
+    $.each(departs, function (depart, blocks) {
+        var cell = modal_table.rows[0].insertCell(-1);
+        cell.text(depart2name[depart]);
+        for (j = 0; j < 8; j++) {
+            var cell = modal_table.rows[j + 1].insertCell(-1);
+            cell.innerHTML = '<table border=true><tbody><tr></tr></tbody></table>';
+            var container_row = cell.children[0].children[0].children[0];
+            $.each(blocks[j], function () {
+                var card_container = container_row.insertCell(-1);
+                card_container.innerHTML = `<h3>${this['course_no']}<h3><br>${this['available']}/${this['limit']} (<small>${this['waitlist']}</small>, <small>${this['reserved']}</small>)`
+            });
+        }
+    });
+    modal_window.open();
+}
+
 function on_tool_loaded(){
     var container = document.createElement('div');
     var cell = table.insertRow(0).insertCell(0);
@@ -122,57 +166,19 @@ function on_tool_loaded(){
         ]);
 
         //modal window
-        var modal_window = $('[data-remodal-id=result_modal]').remodal();
-        $('#course_pool_confirm').click(function(){
-            var courses = $('#course_pool').val().split(',');
-            var hash = {};
-            $.each(courses, function(){ hash[this] = true; });
-            courses = [];
-            $.each(hash, function(k, v){ courses.push(k); });
-            var departs = {};
-            $.each(courses, function(){
-                var course_code = this;
-                if(schedule[course_code] == null) return;
-                var depart_code = course_code.slice(0, 2);
-                if(departs[depart_code] == null) departs[depart_code] = [[],[],[],[],[],[],[],[]];
-                $.each(schedule[course_code], function(){
-                    var block = parseInt(this['block']);
-                    if(isNaN(block))return;
-                    departs[depart_code][block-1].push(this);
-                });
-            });
-            var modal_table = $('#result_modal_table')[0];
-            modal_table.children[0].innerHTML = '';
-            for(i=0;i<9;i++) modal_table.insertRow(-1);
-            for(i=1;i<9;i++) {
-                var cell = modal_table.rows[i].insertCell(-1);
-                cell.innerText = i;
-            }
-            modal_table.rows[0].insertCell(-1);
-            var depart2name = {"AN":"Anthropology","AR":"Arabic","AH":"Art History","AS":"Art Studio","PA":"Asian Studies","BY":"Biology","CH":"Chemistry","CN":"Chinese Language","CL":"Classics","CO":"Comparative Literature","CP":"Computer Science","DS":"Dance Studio","DA":"Dance Theory","EC":"Economics","ED":"Education","EN":"English","EV":"Environmental Program","FG":"Feminist & Gender Studies","FM":"Film and Media Studies","FS":"Film Studies","FR":"French","GS":"General Studies","GY":"Geology","GR":"German","HE":"Hebrew","HY":"History","HK":"Human Biology and Kinesiology","IT":"Italian","JA":"Japanese","MA":"Mathematics","MB":"Molecular Biology","MU":"Music","BE":"Organismal Biology and Ecology","PH":"Philosophy","PC":"Physics","PS":"Political Science","PG":"Portuguese","PY":"Psychology","RM":"Race, Ethnicity, and Migration","RE":"Religion","RU":"Russian","RS":"Russian & Eurasian Studies","SO":"Sociology","SW":"Southwest Studies","SP":"Spanish","HS":"Studies in Humanities","NS":"Studies in Natural Science","TH":"Theatre"};
-            $.each(departs, function(depart, blocks){
-                var cell = modal_table.rows[0].insertCell(-1);
-                cell.text(depart2name[depart]);
-                for(j=0;j<8;j++){
-                    var cell = modal_table.rows[j+1].insertCell(-1);
-                    cell.innerHTML = '<table border=true><tbody><tr></tr></tbody></table>';
-                    var container_row = cell.children[0].children[0].children[0];
-                    $.each(blocks[j], function(){
-                        var card_container = container_row.insertCell(-1);
-                        card_container.innerHTML = `<h3>${this['course_no']}<h3><br>${this['available']}/${this['limit']} (<small>${this['waitlist']}</small>, <small>${this['reserved']}</small>)`
-                    });
-                }
-            });
-            modal_window.open();
+        $('#course_pool_confirm').click(function(){show_modal_window(schedule) });
+        key('ctrl+enter', function(){
+            console.log('hihi')
+            if($('#course_pool').is(':focus')) show_modal_window(schedule);
         });
+        key.filter = ev => true;
     });
 
     $(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`);
 
     //course scheduler style
 
-    $("#course_pool").click(function(){
-
+    $("#course_pool").focus(function(){
         $(".dropdown-menu").addClass("hover-over-boxshadow");
         $("#course_pool").addClass("hover-over-boxshadow");
     });

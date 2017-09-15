@@ -33,6 +33,7 @@
                 "js/loading-bar.min.js",
                 "js/load_schedule.js",
                 "js/remodal.min.js",
+                "js/keymaster.min.js",
                 "menu.js"
             ],
             "css": [
