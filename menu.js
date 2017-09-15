@@ -122,6 +122,7 @@ function show_modal_window(schedule) {
                     export_arr[j+1].push(`${this['course_no']} (${this['available']}/${this['limit']}, ${this['waitlist']}, ${this['reserved']})`);
                     var div_container = document.createElement('span');
                     div_container.setAttribute('class', 'modal-cell');
+                    if(this['available'] == 0) $(div_container).addClass('modal-course-diabled');
                     div_container.innerHTML = `<div class="modal-course-id">${this['course_no']}</div>
                     <div class="modal-course-info1">${this['available']}/${this['limit']}</div>
                     <div class="modal-course-info2">(${this['waitlist']}, ${this['reserved']})</div>`
@@ -165,6 +166,7 @@ function on_tool_loaded(){
         cell.appendChild(container);
         container.innerHTML = `<a class="list" href="javascript:0;"> <div class="list-container"> <div class="list-title" style="color:green;">Easier CC Banner Course Scheduler</div> <div class="list-description" style="color:green;">Scheduling courses has never been easier.</div> </div> </a>`;
         $(container.children[0]).click(function () {
+            ga_track();
             $('#cceasier-tool').slideToggle();
         });
     }
@@ -264,6 +266,7 @@ function on_schedule_loaded(schedule) {
         {
             match: /(^|,)([^,]+)$/,
             search: function (term, callback) {
+                //if is course number
                 if(/(^|,)([A-Z][A-Z]|[a-z][a-z])\d{0,3}$/.test(term)){
                     term = term.toUpperCase();
                     var ans = [];
@@ -273,8 +276,10 @@ function on_schedule_loaded(schedule) {
                             if(ans.length >= 8) break;
                         }
                     }
-                    callback(ans);
-                    return;
+                    if (ans.length != 0) {
+                        callback(ans);
+                        return;
+                    }
                 }
                 var result = fuse.search(term);
                 result = result.slice(0, 8);
@@ -307,4 +312,3 @@ function on_schedule_loaded(schedule) {
 
 //remove the orignal menu
 $(document.body.children[1]).remove();
-
