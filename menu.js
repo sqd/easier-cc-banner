@@ -43,7 +43,6 @@ function load_tool(){
 }
 
 load_tool();
-$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/textcomplete-menu.css')}">`);
 
 function show_modal_window(schedule) {
     var modal_window = $('[data-remodal-id=result_modal]').remodal();
