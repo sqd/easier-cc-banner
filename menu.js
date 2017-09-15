@@ -250,7 +250,8 @@ function on_schedule_loaded(schedule) {
         {
             match: /(^|,)([^,]+)$/,
             search: function (term, callback) {
-                if(/[A-Z][A-Z]\d{0,3}$/.test(term)){
+                if(/([A-Z][A-Z]|[a-z][a-z])\d{0,3}$/.test(term)){
+                    term = term.toUpperCase();
                     var ans = [];
                     for(i=0;i<course_list.length;i++){
                         if(course_list[i]['course_code'].startsWith(term)){
