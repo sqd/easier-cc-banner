@@ -54,7 +54,6 @@ body{
         line-height: normal;
         font-size: 14.4px;
         transition: none;
-        background: transparent !important;
         padding: 2px;
         border: 1px solid rgba(0, 0, 0, 0);
         box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
@@ -138,5 +137,5 @@ body ul a:hover{
 #loading_bar_container div{
 background-color: green;
 height:100%;
-transition:0.2s;
+
     }

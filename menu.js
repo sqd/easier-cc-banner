@@ -100,23 +100,24 @@ function on_tool_loaded(){
     });
 
     //var bar = new ldBar('#progress');
-    $('#course_pool').css('background-color','#eee !important');
+    $('#course_pool').css('background-color','#b5b5b5 !important');
     var start_time = new Date().getTime();
     var timer = setInterval(function(){
         var t = (new Date().getTime() - start_time) / 1000;
         var p = 100*(1-Math.pow(0.85, t));
         //bar.set(p);
-        $('#loading_bar').css('width',p+"%").css('width', '+=10px');
+        $('#loading_bar').css('width',p+"%").css('width', '+=5px');
     }, 20);
     $('#cceasier-tool *').prop('disabled', true);
     get_schedule(schedule => {
         clearInterval(timer);
         setTimeout(function(){
             //bar.set(100);
-            $('#course_pool').css('background-color','rgba(255, 255, 255, 0)');
             $('#loading_bar').css('width','100%').css('width', '+=5px');
-            $('#loading_bar').css('transition','1s');
-            $('#loading_bar').css('background-color','rgba(255, 255, 255, 0)');
+            $('#loading_bar').css('transition','0.3s');
+            $('#loading_bar').css('background-color','transparent');
+            $('#course_pool').css('transition','1s');
+            $('#course_pool').css('background-color','transparent');
         }, 1000);
         $('#cceasier-tool *').prop('disabled', false);
 
