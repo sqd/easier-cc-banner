@@ -1,0 +1,62 @@
+span.fieldlabeltext {
+    font-family: montserrat;
+    text-transform: uppercase;
+    font-size: 17px;
+}
+.dataentrytable select {
+	    border-radius: 3px;
+    font-family: montserrat;
+    border-color: #c8c8c8;
+}
+.dataentrytable ::-webkit-scrollbar
+{
+  width: 12px;  /* for vertical scrollbars */
+}
+.dataentrytable ::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.dataentrytable ::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0.5);
+}
+.dataentrytable input[type='submit'] {
+    background-color: #FFFFFF;
+    color: black;
+    font-family: montserrat;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 90%;
+    font-style: normal;
+    width: 150px;
+    height: 40px;
+    border-radius: 100px;
+}
+.dataentrytable input[type='reset'] {
+    background-color: #FFFFFF;
+    color: black;
+    font-family: montserrat;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 90%;
+    font-style: normal;
+    width: 150px;
+    height: 40px;
+    border-radius: 100px;
+}
+.dataentrytable input[type='text'] {
+    background-color: #FFFFFF;
+    color: black;
+    font-family: montserrat;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 90%;
+    font-style: normal;
+    width: 150px;
+    height: 20px;
+    border-radius: 100px;
+}
+td.delabel {
+    width: 50%;
+}

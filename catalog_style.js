@@ -1,0 +1,1 @@
+$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/catalog.css')}">`);

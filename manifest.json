@@ -77,6 +77,20 @@
             "css": [
                 "style/loading-bar.css"
             ]
+        },
+        //catalog style
+        {
+            "matches": [
+                "https://banssbp.coloradocollege.edu/prod/zwskfcls.p_disp_dyn_ctlg"
+            ],
+            "run_at": "document_end",
+            "js": [
+                "js/jquery-3.2.1.min.js",
+                "catalog_style.js"
+            ],
+            "css": [
+                "style/loading-bar.css"
+            ]
         }
     ],
     "web_accessible_resources": [
