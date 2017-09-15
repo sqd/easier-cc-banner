@@ -167,7 +167,6 @@ function on_tool_loaded(){
         cell.appendChild(container);
         container.innerHTML = `<a class="list" href="javascript:0;"> <div class="list-container"> <div class="list-title" style="color:green;">Easier CC Banner Course Scheduler</div> <div class="list-description" style="color:green;">Scheduling courses has never been easier.</div> </div> </a>`;
         $(container.children[0]).click(function () {
-            ga_track();
             $('#cceasier-tool').slideToggle();
         });
     }
