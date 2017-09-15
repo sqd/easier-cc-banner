@@ -30,12 +30,17 @@
                 "js/jquery-3.2.1.min.js",
                 "js/textcomplete.min.js",
                 "js/fuse.min.js",
+                "js/loading-bar.min.js",
                 "js/load_schedule.js",
+                "js/remodal.min.js",
                 "menu.js"
             ],
             "css": [
                 //"style/main.css",
-                "style/Montserrat.css"
+                "style/Montserrat.css",
+                "style/loading-bar.css",
+                "style/remodal.css",
+                "style/remodal-default-theme.css"
             ]
         },
         //schedule filter

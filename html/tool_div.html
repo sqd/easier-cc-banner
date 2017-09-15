@@ -1,4 +1,14 @@
-<div id="progress" class="ldBar" data-value="0" ></div>
+<div id="progress" class="ldBar" data-value="0" data-preset="energy"></div>
+<br>
 <div>
     <textarea rows=5 style="width:50%;resize:none;" id="course_pool" placeholder="Search with course code, titles and instructors."></textarea>
+    <button id='course_pool_confirm'>Confirm</button>
+</div>
+<div data-remodal-id="result_modal">
+    <button data-remodal-action="close" class="remodal-close"></button>
+    <div id='result_modal_container'>
+        <table border=true id="result_modal_table">
+            <tbody></tbody>
+        </table>
+    </div>
 </div>

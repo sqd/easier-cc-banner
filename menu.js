@@ -55,9 +55,19 @@ function on_tool_loaded(){
         $('#cceasier-tool').slideToggle();
     });
 
+    var bar = new ldBar('#progress');
+    var start_time = new Date().getTime();
+    var timer = setInterval(function(){
+        var t = (new Date().getTime() - start_time) / 1000;
+        var p = 100*(1-Math.pow(0.85, t));
+        bar.set(p);
+    }, 1500);
     $('#cceasier-tool *').prop('disabled', true);
     get_schedule(schedule => {
+        clearInterval(timer);
+        setTimeout(function(){bar.set(100);}, 1000);
         $('#cceasier-tool *').prop('disabled', false);
+
         var course_list = [];
         var instructor_sum = {};
         $.each(schedule, function() {
@@ -110,8 +120,51 @@ function on_tool_loaded(){
                 }
             }
         ]);
-    });
 
+        //modal window
+        var modal_window = $('[data-remodal-id=result_modal]').remodal();
+        $('#course_pool_confirm').click(function(){
+            var courses = $('#course_pool').val().split(',');
+            var hash = {};
+            $.each(courses, function(){ hash[this] = true; });
+            courses = [];
+            $.each(hash, function(k, v){ courses.push(k); });
+            var departs = {};
+            $.each(courses, function(){
+                var course_code = this;
+                if(schedule[course_code] == null) return;
+                var depart_code = course_code.slice(0, 2);
+                if(departs[depart_code] == null) departs[depart_code] = [[],[],[],[],[],[],[],[]];
+                $.each(schedule[course_code], function(){
+                    var block = parseInt(this['block']);
+                    departs[depart_code][block-1].push(this);
+                });
+            });
+            var modal_table = $('#result_modal_table')[0];
+            modal_table.children[0].innerHTML = '';
+            for(i=0;i<9;i++) modal_table.insertRow(-1);
+            for(i=1;i<9;i++) {
+                var cell = modal_table.rows[i].insertCell(-1);
+                cell.innerText = i;
+            }
+            modal_table.rows[0].insertCell(-1);
+            $.each(departs, function(depart, blocks){
+                var cell = modal_table.rows[0].insertCell(-1);
+                cell.text(depart);
+                for(j=0;j<8;j++){
+                    var cell = modal_table.rows[j+1].insertCell(-1);
+                    cell.innerHTML = '<table border=true><tbody><tr></tr></tbody></table>';
+                    var container_row = cell.children[0].children[0].children[0];
+                    $.each(blocks[j], function(){
+                        var card_container = container_row.insertCell(-1);
+                        card_container.innerHTML = `<h3>${this['course_no']}<h3><br>${this['available']}/${this['limit']} (<small>${this['waitlist']}</small>, <small>${this['reserved']}</small>)`
+                    });
+                }
+            });
+            modal_window.open();
+        });
+    });
+    $('#course_pool').click(function(){console.log('hihi')});
 }
 
 //remove the orignal menu
