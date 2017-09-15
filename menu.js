@@ -207,7 +207,8 @@ function on_tool_loaded(){
                     callback(match);
                 },
                 template: function (course_code) {
-                    return `<p><b>${course_code}</b> <small>(${instructor_sum[course_code]})</small></p>${schedule[course_code][0]['course_title']}<p></p>`
+                    var title = schedule[course_code][0]['course_title'].replace(/(\[.*\])/g, '<small style="color:grey">$1</small>').replace(/(\(.*\))/g, '<small style="color:grey">$1</small>');
+                    return `<b>${course_code}</b> <small>(${instructor_sum[course_code]})</small><br>${title}`
                 },
                 replace: function (course_code) {
                     return '$1' + course_code + ',';
