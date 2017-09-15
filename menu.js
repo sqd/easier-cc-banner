@@ -137,97 +137,99 @@ function on_tool_loaded(){
     {
         $('#course_pool').css('background-color', '#b5b5b5 !important');
         var start_time = new Date().getTime();
-        var timer = setInterval(function () {
+        window.progressTimer = setInterval(function () {
             var t = (new Date().getTime() - start_time) / 1000;
             var p = 100 * (1 - Math.pow(0.85, t));
             $('#loading_bar').css('width', p + "%").css('width', '+=5px');
         }, 20);
         $('#cceasier-tool *').prop('disabled', true);
     }
-    get_schedule(schedule => {
-        //transition & progress bar
-        {
-            clearInterval(timer);
-            setTimeout(function () {
-                $('#loading_bar').css('width', '100%').css('width', '+=5px');
-                $('#loading_bar').css('transition', '0.3s');
-                $('#loading_bar').css('background-color', 'transparent');
-                $('#course_pool').css('transition', '1s');
-                $('#course_pool').css('background-color', 'transparent');
-            }, 1000);
-            $('#cceasier-tool *').prop('disabled', false);
-        }
 
-        //preprocess schedule data
-        {
-            var course_list = [];
-            var instructor_sum = {};
-            $.each(schedule, function () {
-                var prof = '';
-                var hash = {};
-                $.each(schedule[this[0]['course_no']], function () {
-                    if (hash[this['instructor']] == null) {
-                        prof += this['instructor'] + ', ';
-                        hash[this['instructor']] = true;
-                    }
-                });
-                prof = prof.slice(0, -2);
-                course_list.push({
-                    "course_code": this[0]["course_no"],
-                    "course_title": this[0]["course_title"],
-                    "instructor": prof
-                });
-                instructor_sum[this[0]['course_no']] = prof;
-            });
-        }
-
-        var fuse = new Fuse(course_list, {
-            shouldSort: true,
-            threshold: 0.4,
-            location: 0,
-            distance: 100,
-            maxPatternLength: 32,
-            minMatchCharLength: 2,
-            keys: [
-                "course_code",
-                "instructor",
-                "course_title"]
-        });
-
-        new Textcomplete(new Textcomplete.editors.Textarea(document.getElementById('course_pool'))).register([
-            {
-                match: /(^|,)([^,]+)$/,
-                search: function (term, callback) {
-                    var result = fuse.search(term);
-                    result = result.slice(0, 5);
-                    var match = [];
-                    $.each(result, function(){
-                        match.push(this['course_code']);
-                    });
-                    callback(match);
-                },
-                template: function (course_code) {
-                    var title = schedule[course_code][0]['course_title'].replace(/(\[.*\])/g, '<small style="color:grey">$1</small>').replace(/(\(.*\))/g, '<small style="color:grey">$1</small>');
-                    return `<b>${course_code}</b> <small>(${instructor_sum[course_code]})</small><br>${title}`
-                },
-                replace: function (course_code) {
-                    return '$1' + course_code + ',';
-                }
-            }
-        ]);
-
-        //modal window event
-        {
-            $('#course_pool_confirm').click(function () { show_modal_window(schedule) });
-            key('ctrl+enter', function () {
-                if ($('#course_pool').is(':focus')) show_modal_window(schedule);
-            });
-            key.filter = ev => true;
-        }
-    });
+    get_schedule(on_schedule_loaded);
 
     $(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`); //TODO: change injection
+}
 
+function on_schedule_loaded(schedule) {
+    //transition & progress bar
+    {
+        clearInterval(window.progressTimer);
+        setTimeout(function () {
+            $('#loading_bar').css('width', '100%').css('width', '+=5px');
+            $('#loading_bar').css('transition', '0.3s');
+            $('#loading_bar').css('background-color', 'transparent');
+            $('#course_pool').css('transition', '1s');
+            $('#course_pool').css('background-color', 'transparent');
+        }, 1000);
+        $('#cceasier-tool *').prop('disabled', false);
+    }
+
+    //preprocess schedule data
+    {
+        var course_list = [];
+        var instructor_sum = {};
+        $.each(schedule, function () {
+            var prof = '';
+            var hash = {};
+            $.each(schedule[this[0]['course_no']], function () {
+                if (hash[this['instructor']] == null) {
+                    prof += this['instructor'] + ', ';
+                    hash[this['instructor']] = true;
+                }
+            });
+            prof = prof.slice(0, -2);
+            course_list.push({
+                "course_code": this[0]["course_no"],
+                "course_title": this[0]["course_title"],
+                "instructor": prof
+            });
+            instructor_sum[this[0]['course_no']] = prof;
+        });
+    }
+
+    var fuse = new Fuse(course_list, {
+        shouldSort: true,
+        threshold: 0.4,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        minMatchCharLength: 2,
+        keys: [
+            "course_code",
+            "instructor",
+            "course_title"]
+    });
+
+    new Textcomplete(new Textcomplete.editors.Textarea(document.getElementById('course_pool'))).register([
+        {
+            match: /(^|,)([^,]+)$/,
+            search: function (term, callback) {
+                var result = fuse.search(term);
+                result = result.slice(0, 5);
+                var match = [];
+                $.each(result, function () {
+                    match.push(this['course_code']);
+                });
+                callback(match);
+            },
+            template: function (course_code) {
+                var title = schedule[course_code][0]['course_title'].replace(/(\[.*\])/g, '<small style="color:grey">$1</small>').replace(/(\(.*\))/g, '<small style="color:grey">$1</small>');
+                return `<b>${course_code}</b> <small>(${instructor_sum[course_code]})</small><br>${title}`
+            },
+            replace: function (course_code) {
+                return '$1' + course_code + ',';
+            }
+        }
+    ]);
+
+    //modal window event
+    {
+        $('#course_pool_confirm').click(function () { show_modal_window(schedule) });
+        key('ctrl+enter', function () {
+            if ($('#course_pool').is(':focus')) show_modal_window(schedule);
+        });
+        key.filter = ev => true;
+    }
 }
 
 //remove the orignal menu
