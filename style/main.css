@@ -87,7 +87,7 @@ body ul:hover{
 body ul li{
 
 }
-body ul li:hover{
+body ul li.active{
         background-color: #eee;
         cursor: default;
 }

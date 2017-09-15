@@ -67,6 +67,15 @@ function show_modal_window(schedule) {
             });
         });
     }
+    if(Object.keys(departs).length == 0) {
+        $('#course_pool').css('transition', '200ms');
+        $('#course_pool').css('background-color', '#ffcdd2');
+        setTimeout(function(){
+            $('#course_pool').css('transition', '200ms');
+            $('#course_pool').css('background-color', 'transparent');
+        }, 200);
+        return;
+    }
     //build table
     {
         var modal_table = $('#result_modal_table')[0];
@@ -210,7 +219,6 @@ function on_tool_loaded(){
         {
             $('#course_pool_confirm').click(function () { show_modal_window(schedule) });
             key('ctrl+enter', function () {
-                console.log('hihi')
                 if ($('#course_pool').is(':focus')) show_modal_window(schedule);
             });
             key.filter = ev => true;
