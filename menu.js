@@ -117,12 +117,15 @@ function show_modal_window(schedule) {
             for(i=1;i<max_len;i++) export_arr[0].push('');
             for (j = 0; j < 8; j++) {
                 var cell = modal_table.rows[j + 1].insertCell(-1);
-                cell.innerHTML = '<table border=true><tbody><tr></tr></tbody></table>';
-                var container_row = cell.children[0].children[0].children[0];
+
                 $.each(blocks[j], function () {
                     export_arr[j+1].push(`${this['course_no']} (${this['available']}/${this['limit']}, ${this['waitlist']}, ${this['reserved']})`);
-                    var card_container = container_row.insertCell(-1);
-                    card_container.innerHTML = `<h3>${this['course_no']}<h3><br>${this['available']}/${this['limit']} (<small>${this['waitlist']}</small>, <small>${this['reserved']}</small>)`
+                    var div_container = document.createElement('span');
+                    div_container.setAttribute('class', 'modal-cell');
+                    div_container.innerHTML = `<div class="modal-course-id">${this['course_no']}</div>
+                    <div class="modal-course-info1">${this['available']}/${this['limit']}</div>
+                    <div class="modal-course-info2">(${this['waitlist']}, ${this['reserved']})</div>`
+                    cell.appendChild(div_container);
                 });
                 for(i=blocks[j].length;i<max_len;i++) export_arr[j+1].push('');
             }
