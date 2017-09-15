@@ -58,7 +58,7 @@ function download(filename, text) {
 
     document.body.removeChild(element);
 }
-
+var tableLoaded=false;
 function show_modal_window(schedule) {
     //preprocess data
     {
@@ -134,16 +134,32 @@ function show_modal_window(schedule) {
 
 
     //modal table style
-    $('#result_modal_table').css('width','100%');
+    
     var modalTableTrs = $('#result_modal_table').find('tr');
-    console.log(modalTableTrs);
+    //console.log(modalTableTrs);
     var modalTableTds = modalTableTrs.find('td');
+    modalTableTrs.css('height','70px');
     $(modalTableTrs[0]).css('height','auto');
     $(modalTableTds[0]).css('width','5%');
-    for(var i=0; i<(modalTableTds.length-modalTableTds.length)/modalTableTrs.length; i++)
+    //title tds
+    for(var i=0; i<(modalTableTds.length-modalTableTrs.length)/modalTableTrs.length; i++)
     {
-        var x = (modalTableTds.length-modalTableTds.length)/modalTableTds.length;
-        $(modalTableTds[i+1]).css('width',(x-5/(modalTableTds.length-modalTableTds.length)/modalTableTrs.length).toString()+'%');
+        var x = 100*modalTableTrs.length/(modalTableTds.length-modalTableTrs.length);
+        $(modalTableTds[i+1]).css('width',(x-5/x).toString()+'%');
+        $(modalTableTds[i+1]).addClass('modal-course-title');
+    }
+    //all trs
+    for(var i=0; i<modalTableTrs.length; i++)
+    {
+        if(i%2==0){
+            $(modalTableTrs[i]).css('background-color','#eee');
+        }
+
+    }
+    if(!tableLoaded)
+    {
+        var downloadImgUrl = chrome.runtime.getURL('img/download.png');
+        $('#btn_export').append('<img src="' + downloadImgUrl + '"></img>');
     }
     
     //export
@@ -154,6 +170,8 @@ function show_modal_window(schedule) {
         });
     }
     $('[data-remodal-id=result_modal]').remodal().open();
+
+    tableLoaded=true;
 }
 
 function on_tool_loaded(){
