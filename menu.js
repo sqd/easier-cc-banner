@@ -112,6 +112,7 @@ function show_modal_window(schedule) {
             var cell = modal_table.rows[0].insertCell(-1);
             var depart_name = depart2name[depart];
             cell.innerText = depart_name;
+            cell.setAttribute('class', 'modal-course-title');
             export_arr[0].push(depart_name);
             var max_len = Math.max(...$(blocks).map((_,x)=>x.length));
             for(i=1;i<max_len;i++) export_arr[0].push('');
