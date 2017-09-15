@@ -255,14 +255,14 @@ function on_schedule_loaded(schedule) {
                     for(i=0;i<course_list.length;i++){
                         if(course_list[i]['course_code'].startsWith(term)){
                             ans.push(course_list[i]['course_code']);
-                            if(ans.length >= 5) break;
+                            if(ans.length >= 8) break;
                         }
                     }
                     callback(ans);
                     return;
                 }
                 var result = fuse.search(term);
-                result = result.slice(0, 5);
+                result = result.slice(0, 8);
                 var match = [];
                 $.each(result, function () { match.push(this['course_code']); });
                 callback(match);
