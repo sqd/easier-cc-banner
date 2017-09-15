@@ -137,6 +137,7 @@ function on_tool_loaded(){
                 if(departs[depart_code] == null) departs[depart_code] = [[],[],[],[],[],[],[],[]];
                 $.each(schedule[course_code], function(){
                     var block = parseInt(this['block']);
+                    if(isNaN(block))return;
                     departs[depart_code][block-1].push(this);
                 });
             });
@@ -148,9 +149,10 @@ function on_tool_loaded(){
                 cell.innerText = i;
             }
             modal_table.rows[0].insertCell(-1);
+            var depart2name = {"AN":"Anthropology","AR":"Arabic","AH":"Art History","AS":"Art Studio","PA":"Asian Studies","BY":"Biology","CH":"Chemistry","CN":"Chinese Language","CL":"Classics","CO":"Comparative Literature","CP":"Computer Science","DS":"Dance Studio","DA":"Dance Theory","EC":"Economics","ED":"Education","EN":"English","EV":"Environmental Program","FG":"Feminist & Gender Studies","FM":"Film and Media Studies","FS":"Film Studies","FR":"French","GS":"General Studies","GY":"Geology","GR":"German","HE":"Hebrew","HY":"History","HK":"Human Biology and Kinesiology","IT":"Italian","JA":"Japanese","MA":"Mathematics","MB":"Molecular Biology","MU":"Music","BE":"Organismal Biology and Ecology","PH":"Philosophy","PC":"Physics","PS":"Political Science","PG":"Portuguese","PY":"Psychology","RM":"Race, Ethnicity, and Migration","RE":"Religion","RU":"Russian","RS":"Russian & Eurasian Studies","SO":"Sociology","SW":"Southwest Studies","SP":"Spanish","HS":"Studies in Humanities","NS":"Studies in Natural Science","TH":"Theatre"};
             $.each(departs, function(depart, blocks){
                 var cell = modal_table.rows[0].insertCell(-1);
-                cell.text(depart);
+                cell.text(depart2name[depart]);
                 for(j=0;j<8;j++){
                     var cell = modal_table.rows[j+1].insertCell(-1);
                     cell.innerHTML = '<table border=true><tbody><tr></tr></tbody></table>';
@@ -173,13 +175,11 @@ function on_tool_loaded(){
 
         $(".dropdown-menu").addClass("hover-over-boxshadow");
         $("#course_pool").addClass("hover-over-boxshadow");
-        console.log('clicked');
     });
     $("#course_pool").blur(function(){
         $(".dropdown-menu").css('display','none');
         $(".dropdown-menu").removeClass("hover-over-boxshadow");
         $("#course_pool").removeClass("hover-over-boxshadow");
-        console.log('unfocused');
     });
 }
 
