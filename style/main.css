@@ -66,7 +66,7 @@ body{
 
 body ul {
     left: 25% !important;
-    top: 290px !important;
+    top: 320px !important;
     width: calc(50% + 7px);
     background-color: rgb(255, 255, 255);
     /* border: 1px solid rgba(0, 0, 0, 0); */
@@ -100,6 +100,7 @@ body ul a:hover{
     list-style-type: none;
     padding: 2px;
     border: 1px solid rgba(255, 255, 255, 0);
+    padding-left: 10px;
 }
 
 .textcomplete-header{
@@ -110,3 +111,32 @@ body ul a:hover{
 .textcomplete-footer{
     display:none;
 }
+
+#course_pool_confirm{
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 100px;
+    top: -27px;
+    right: -20%;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    /* border: none; */
+}
+#course_pool_confirm img{
+        width: 100%;
+    height: auto;
+    /* color: black; */
+    filter: invert();
+}
+
+#loading_bar_container{
+    width:50%;
+    position: relative;
+    left:25%;
+    height:5px;
+}
+#loading_bar_container div{
+background-color: green;
+height:100%;
+transition:0.2s;
+    }

@@ -55,17 +55,25 @@ function on_tool_loaded(){
         $('#cceasier-tool').slideToggle();
     });
 
-    var bar = new ldBar('#progress');
+    //var bar = new ldBar('#progress');
+    $('#course_pool').css('background-color','#eee !important');
     var start_time = new Date().getTime();
     var timer = setInterval(function(){
         var t = (new Date().getTime() - start_time) / 1000;
         var p = 100*(1-Math.pow(0.85, t));
-        bar.set(p);
-    }, 1500);
+        //bar.set(p);
+        $('#loading_bar').css('width',p+"%").css('width', '+=10px');
+    }, 20);
     $('#cceasier-tool *').prop('disabled', true);
     get_schedule(schedule => {
         clearInterval(timer);
-        setTimeout(function(){bar.set(100);}, 1000);
+        setTimeout(function(){
+            //bar.set(100);
+            $('#course_pool').css('background-color','rgba(255, 255, 255, 0)');
+            $('#loading_bar').css('width','100%').css('width', '+=5px');
+            $('#loading_bar').css('transition','1s');
+            $('#loading_bar').css('background-color','rgba(255, 255, 255, 0)');
+        }, 1000);
         $('#cceasier-tool *').prop('disabled', false);
 
         var course_list = [];
@@ -169,18 +177,21 @@ function on_tool_loaded(){
 
     //course scheduler style
 
-    $("#course_pool").click(function(){
-
+    $("#course_pool").focus(function(){
+$(".dropdown-menu").css('display','block');
         $(".dropdown-menu").addClass("hover-over-boxshadow");
         $("#course_pool").addClass("hover-over-boxshadow");
-        console.log('clicked');
+        //console.log('clicked');
     });
     $("#course_pool").blur(function(){
         $(".dropdown-menu").css('display','none');
         $(".dropdown-menu").removeClass("hover-over-boxshadow");
         $("#course_pool").removeClass("hover-over-boxshadow");
-        console.log('unfocused');
+        //console.log('unfocused');
     });
+
+    var arrowImgUrl = chrome.runtime.getURL('img/arrow.png');
+    $("#course_pool_confirm").append('<img src="'+arrowImgUrl+'"></img>');
 }
 
 //remove the orignal menu
