@@ -46,14 +46,29 @@ function load_tool(){
 
 load_tool();
 
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
 function show_modal_window(schedule) {
     //preprocess data
     {
+        //sieve out duplicated courses
         var courses = $('#course_pool').val().split(',');
         var hash = {};
         $.each(courses, function () { hash[this] = true; });
         courses = [];
         $.each(hash, function (k, v) { courses.push(k); });
+
         var departs = {};
         $.each(courses, function () {
             var course_code = this;
@@ -67,6 +82,8 @@ function show_modal_window(schedule) {
             });
         });
     }
+
+    //if no valid courses
     if(Object.keys(departs).length == 0) {
         $('#course_pool').css('transition', '200ms');
         $('#course_pool').css('background-color', '#ffcdd2');
@@ -76,7 +93,8 @@ function show_modal_window(schedule) {
         }, 200);
         return;
     }
-    //build table
+
+    //build table, build export array
     {
         var modal_table = $('#result_modal_table')[0];
         modal_table.children[0].innerHTML = '';
@@ -86,19 +104,35 @@ function show_modal_window(schedule) {
             cell.innerText = i;
         }
         modal_table.rows[0].insertCell(-1);
+
+        var export_arr = [[''],['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']];
+
         var depart2name = { "AN": "Anthropology", "AR": "Arabic", "AH": "Art History", "AS": "Art Studio", "PA": "Asian Studies", "BY": "Biology", "CH": "Chemistry", "CN": "Chinese Language", "CL": "Classics", "CO": "Comparative Literature", "CP": "Computer Science", "DS": "Dance Studio", "DA": "Dance Theory", "EC": "Economics", "ED": "Education", "EN": "English", "EV": "Environmental Program", "FG": "Feminist & Gender Studies", "FM": "Film and Media Studies", "FS": "Film Studies", "FR": "French", "GS": "General Studies", "GY": "Geology", "GR": "German", "HE": "Hebrew", "HY": "History", "HK": "Human Biology and Kinesiology", "IT": "Italian", "JA": "Japanese", "MA": "Mathematics", "MB": "Molecular Biology", "MU": "Music", "BE": "Organismal Biology and Ecology", "PH": "Philosophy", "PC": "Physics", "PS": "Political Science", "PG": "Portuguese", "PY": "Psychology", "RM": "Race, Ethnicity, and Migration", "RE": "Religion", "RU": "Russian", "RS": "Russian & Eurasian Studies", "SO": "Sociology", "SW": "Southwest Studies", "SP": "Spanish", "HS": "Studies in Humanities", "NS": "Studies in Natural Science", "TH": "Theatre" };
         $.each(departs, function (depart, blocks) {
             var cell = modal_table.rows[0].insertCell(-1);
-            cell.innerText = depart2name[depart];
+            var depart_name = depart2name[depart];
+            cell.innerText = depart_name;
+            export_arr[0].push(depart_name);
+            var max_len = Math.max(...$(blocks).map((_,x)=>x.length));
+            for(i=1;i<max_len;i++) export_arr[0].push('');
             for (j = 0; j < 8; j++) {
                 var cell = modal_table.rows[j + 1].insertCell(-1);
                 cell.innerHTML = '<table border=true><tbody><tr></tr></tbody></table>';
                 var container_row = cell.children[0].children[0].children[0];
                 $.each(blocks[j], function () {
+                    export_arr[j+1].push(`${this['course_no']} (${this['available']}/${this['limit']}, ${this['waitlist']}, ${this['reserved']})`);
                     var card_container = container_row.insertCell(-1);
                     card_container.innerHTML = `<h3>${this['course_no']}<h3><br>${this['available']}/${this['limit']} (<small>${this['waitlist']}</small>, <small>${this['reserved']}</small>)`
                 });
+                for(i=blocks[j].length;i<max_len;i++) export_arr[j+1].push('');
             }
+        });
+    }
+    //export
+    {
+        $('#btn_export').click(function(){
+            csv = new CSV(export_arr).encode();
+            download('course-schedule.csv', csv);
         });
     }
     $('[data-remodal-id=result_modal]').remodal().open();

@@ -34,6 +34,7 @@
                 "js/load_schedule.js",
                 "js/remodal.min.js",
                 "js/keymaster.min.js",
+                "js/csv.min.js",
                 "menu.js"
             ],
             "css": [
