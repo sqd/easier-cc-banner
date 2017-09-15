@@ -166,8 +166,14 @@ function on_tool_loaded(){
         $(cell).attr('colspan', 2).attr('class', 'menu-cell');
         cell.appendChild(container);
         container.innerHTML = `<a class="list" href="javascript:0;"> <div class="list-container"> <div class="list-title" style="color:green;">Easier CC Banner Course Scheduler</div> <div class="list-description" style="color:green;">Scheduling courses has never been easier.</div> </div> </a>`;
+        $('#course_pool_confirm').toggle();
         $(container.children[0]).click(function () {
-            $('#cceasier-tool').slideToggle();
+            if($('#course_pool_confirm').css('display') != 'none')
+                $('#course_pool_confirm').toggle();
+            $('#cceasier-tool').slideToggle(500, function(){
+                if($('#course_pool_confirm').css('display') == 'none')
+                    $('#course_pool_confirm').toggle();
+            });
         });
     }
 
