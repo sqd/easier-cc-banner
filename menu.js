@@ -3,6 +3,16 @@ if(document.getElementById('UserID')){
     window.location.href = 'https://cas.coloradocollege.edu/cas/login?service=https%3A%2F%2Fbanssop.coloradocollege.edu%3A443%2Fssomanager%2Fc%2FSSB';
 }
 
+function guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+}
+
 //create menu table
 {
     var table = document.createElement('table');
@@ -125,19 +135,17 @@ function show_modal_window(schedule) {
                     var course_code = this['course_no'];
                     div_container.setAttribute('class', 'modal-cell');
                     if(this['available'] == 0) $(div_container).addClass('modal-course-disabled');
-                    div_container.innerHTML = `<div class="modal-course-id">${course_code} <img height=13px width=13px class=check-btn src=${chrome.runtime.getURL('img/check.svg')} ></div>
+                    var id = guid();
+                    div_container.innerHTML = `<div class="modal-course-id">${course_code} <input type="checkbox" class="cbx hidden" id="${id}"/><label for="${id}" class="lbl"></label></div>
                     <div class="modal-course-name">${this['course_title'].replace(/(\[.*\])|(\(.*\))/,'')}<img height=13px width=13px src=${chrome.runtime.getURL('img/outlink.svg')} onclick="javascript:window.open('https://www.coloradocollege.edu/academics/curriculum/catalog/detail.html?courseid=${course_code}');"></div>
                     <div class="modal-course-info1">${/( |^)(\S*)$/.exec(this['instructor'])[2]}</div>
                     <div class="modal-course-info1">${this['available']}/${this['limit']}</div>
                     <div class="modal-course-info2">(${this['waitlist']}, ${this['reserved']})</div>`
-                    $(div_container).find('img').css('cursor', 'pointer');
+                    $(div_container).find('input').css('cursor', 'pointer');
                     if(this['available'] != 0)
-                        $(div_container).find(".check-btn").click(function(){
-
+                        $(div_container).find("input").click(function(){
                             if($(div_container).hasClass('wiggle')) $(div_container).removeClass('wiggle');
                             else $(div_container).addClass('wiggle');
-                            //if($(div_container).hasClass('leWaterWave')) $(div_container).removeClass('leWaterWave');
-                            //else $(div_container).addClass('leWaterWave');
                         });
                     cell.appendChild(div_container);
                 });

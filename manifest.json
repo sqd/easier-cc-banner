@@ -44,8 +44,8 @@
                 "style/remodal.css",
                 "style/remodal-default-theme.css",
                 "style/csshake.min.css",
-                "style/wickedcss.min.css"
-                
+                "style/wickedcss.min.css",
+                "style/toggle.css"
             ]
         },
         //schedule filter
