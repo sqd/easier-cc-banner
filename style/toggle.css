@@ -1,13 +1,14 @@
 .lbl {
   position: relative;
   display: block;
-  height: 10px;
-  width: 22px;
+  height: 15px;
+  width: 45px;
   background: #898989;
-  border-radius: 5px;
+  border-radius: 10000px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-block;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 2px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .lbl:after {
@@ -15,11 +16,11 @@
   left: -1px;
   top: -1px;
   display: block;
-  width: 13px;
-  height: 13px;
-  border-radius: 6.5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10000px;
   background: #fff;
-  box-shadow: 0px 3px 3px rgba(0,0,0,0.05);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 2px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   content: '';
   transition: all 0.3s ease;
 }
@@ -29,7 +30,7 @@
 .cbx:checked ~ label { background: #6fbeb5; }
 
 .cbx:checked ~ label:after {
-  left: 10px;
+  left: 22.5px;
   background: #179588;
 }
 

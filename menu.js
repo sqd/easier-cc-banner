@@ -1,3 +1,5 @@
+$(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`);
+
 //check if need relogin
 if(document.getElementById('UserID')){
     window.location.href = 'https://cas.coloradocollege.edu/cas/login?service=https%3A%2F%2Fbanssop.coloradocollege.edu%3A443%2Fssomanager%2Fc%2FSSB';
@@ -136,16 +138,25 @@ function show_modal_window(schedule) {
                     div_container.setAttribute('class', 'modal-cell');
                     if(this['available'] == 0) $(div_container).addClass('modal-course-disabled');
                     var id = guid();
-                    div_container.innerHTML = `<div class="modal-course-id">${course_code} <input type="checkbox" class="cbx hidden" id="${id}"/><label for="${id}" class="lbl"></label></div>
-                    <div class="modal-course-name">${this['course_title'].replace(/(\[.*\])|(\(.*\))/,'')}<img height=13px width=13px src=${chrome.runtime.getURL('img/outlink.svg')} onclick="javascript:window.open('https://www.coloradocollege.edu/academics/curriculum/catalog/detail.html?courseid=${course_code}');"></div>
+                    div_container.innerHTML = `<div class="modal-course-id">${course_code} </div>
+                    <!--div class="modal-course-name">${this['course_title'].replace(/(\[.*\])|(\(.*\))/,'')}<img height=13px width=13px src=${chrome.runtime.getURL('img/outlink.svg')} onclick="javascript:window.open('https://www.coloradocollege.edu/academics/curriculum/catalog/detail.html?courseid=${course_code}');"></div-->
+                    <div class="modal-course-name"><a href="'https://www.coloradocollege.edu/academics/curriculum/catalog/detail.html?courseid=${course_code}'" target='_blank'>${this['course_title'].replace(/(\[.*\])|(\(.*\))/,'')}</a></div>
+
                     <div class="modal-course-info1">${/( |^)(\S*)$/.exec(this['instructor'])[2]}</div>
                     <div class="modal-course-info1">${this['available']}/${this['limit']}</div>
                     <div class="modal-course-info2">(${this['waitlist']}, ${this['reserved']})</div>`
-                    $(div_container).find('input').css('cursor', 'pointer');
+                    $(div_container).find('.modal-course-id').css('cursor', 'pointer');
                     if(this['available'] != 0)
-                        $(div_container).find("input").click(function(){
-                            if($(div_container).hasClass('wiggle')) $(div_container).removeClass('wiggle');
-                            else $(div_container).addClass('wiggle');
+                        $(div_container).find(".modal-course-id").click(function(){
+
+                            if($(div_container).hasClass('wiggle')){
+                                $(div_container).removeClass('wiggle');
+                                $(div_container).find(".modal-course-id").removeClass('modal-course-id-selected');
+                            }
+                            else{
+                                $(div_container).addClass('wiggle');
+                                $(div_container).find(".modal-course-id").addClass('modal-course-id-selected');
+                            } 
                         });
                     cell.appendChild(div_container);
                 });
@@ -180,15 +191,16 @@ function show_modal_window(schedule) {
     }
     if(!tableLoaded)
     {
-        var downloadImgUrl = chrome.runtime.getURL('img/download.png');
-        $('#btn_export').append('<img src="' + downloadImgUrl + '"></img>');
+        var printImgUrl = chrome.runtime.getURL('img/print.png');
+        $('#btn_export').append('<img src="' + printImgUrl + '"></img>');
     }
     
     //export
     {
         $('#btn_export').click(function(){
-            csv = new CSV(export_arr).encode();
-            download('course-schedule.csv', csv);
+            //csv = new CSV(export_arr).encode();
+            //download('course-schedule.csv', csv);
+            window.print();
         });
     }
     $('[data-remodal-id=result_modal]').remodal().open();
@@ -205,14 +217,16 @@ function on_tool_loaded(){
         cell.appendChild(container);
         container.innerHTML = `<a class="list" href="javascript:0;"> <div class="list-container"> <div class="list-title" style="color:green;">Easier CC Banner Course Scheduler</div> <div class="list-description" style="color:green;">Scheduling courses has never been easier.</div> </div> </a>`;
         $('#course_pool_confirm').toggle();
-        $(container.children[0]).click(function () {
+        
+        //$(container.children[0]).click(function () {
             if($('#course_pool_confirm').css('display') != 'none')
                 $('#course_pool_confirm').toggle();
-            $('#cceasier-tool').slideToggle(500, function(){
+            $('#cceasier-tool').slideToggle(0, function(){
                 if($('#course_pool_confirm').css('display') == 'none')
                     $('#course_pool_confirm').toggle();
             });
-        });
+        //});
+
     }
 
     //course scheduler style

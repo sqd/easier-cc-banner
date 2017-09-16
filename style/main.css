@@ -1,6 +1,7 @@
 body{
         margin-left: 0 !important;
     margin-right: 0 !important;
+        width: 99.9% !important;
 }
 .list{
     text-decoration: none !important;
@@ -116,11 +117,12 @@ body ul a:hover{
     height: 50px;
     background: #4285f4;
     border-radius: 100px;
-        top: 262px;
+    top: 262px;
     /*right: -20%;*/
     box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
     border:none;
     position: absolute !important;
+    outline: none;
 }
 #course_pool_confirm img{
         width: 90%;
@@ -158,16 +160,56 @@ height:100%;
     /* padding-top: 10px; */
     color: black;
 }
-.modal-course-id{font-weight: bold;font-size: 15px;line-height: 18px;margin-top: 10px;margin-bottom: 0px; opacity: inherit;}
+.modal-course-id{
+    font-weight: bold;
+    font-size: 13px;
+    /* line-height: 13px; */
+    margin-top: 6px;
+    margin-bottom: 6px;
+    opacity: inherit;
+    background-color: #eee;
+    width: 60px;
+    padding: 4px;
+    border-radius: 1000px;
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
+    margin-left: calc(50% - 31px);
+}
+.modal-course-id:hover{
+    cursor: pointer;
+    }
+.modal-course-id-selected{
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    background-color: #4285f4;
+    color:white;
+}
 .modal-course-name{font-weight: bold;font-size: 15px;line-height: 15px;margin-top: 0px; margin-bottom: 2px; opacity: inherit;}
+.modal-course-name a{
+    text-decoration: none;
+    color:black;
+}
+.modal-course-name a:visited{
+    cursor:pointer;
+    text-decoration: none;
+    color:black;
+}
+.modal-course-name a:active{
+    cursor:pointer;
+    text-decoration: none;
+    color:black;
+}
+.modal-course-name a:hover{
+    cursor:pointer;
+    text-decoration: underline;
+}
 .modal-course-info1{
 
-font-size: 14px;
+font-size: 13px;
+
 display: inline-block;
 }
 .modal-course-info2{
     
-font-size: 14px;
+font-size: 13px;
     
 display: inline-block;
     
@@ -196,6 +238,7 @@ margin-bottom: 10px;
         position: absolute !important;
         /* margin-top: 34px; */
         /* float: right; */
+        outline: none;
 }
 #btn_export img{
     width: 90%;
@@ -206,11 +249,19 @@ margin-bottom: 10px;
     width: 40%;
     margin-left: 30%;
     margin-top: 20px;
-    margin-bottom: -10px;
+    margin-bottom: -14px;
+    padding-top: 4px;
 }
 .modal-legend-title{
     text-align: center;
 }
 #cceasier-tool{
     margin-bottom:50px;
+}
+.course-select{
+
+}
+.remodal {
+        min-width: 700px;
+    max-width: 80%;
 }

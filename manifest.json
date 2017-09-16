@@ -38,7 +38,7 @@
                 "menu.js"
             ],
             "css": [
-                "style/main.css",
+                //"style/main.css",
                 "style/Montserrat.css",
                 "style/loading-bar.css",
                 "style/remodal.css",
