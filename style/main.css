@@ -17,7 +17,7 @@ body{
 }
 .list-container {
     text-align: center;
-    margin-top: -5px;
+    /* margin-top: 15px; */
     font-family: Montserrat;
     height: 80px;
 }
@@ -28,8 +28,8 @@ body{
 }
 .list-description {
     color: #404040;
-    font-size: 10px;
-    line-height: 10px;
+    font-size: 12px;
+    line-height: 12px;
 }
 .menu-cell {
     /* border-bottom: 1px solid black; */
@@ -116,11 +116,17 @@ body ul a:hover{
     height: 50px;
     background: #4285f4;
     border-radius: 100px;
-        top: 262px;
+    top: 262px;
     /*right: -20%;*/
     box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
+    
     border:none;
     position: absolute !important;
+}
+#course_pool_confirm:focus {
+    outline: none;
+    
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 #course_pool_confirm img{
         width: 90%;
@@ -190,11 +196,17 @@ margin-bottom: 10px;
         border-radius: 100px;
         bottom: 25px;
         right: 45px;
+        box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
         /* box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08); */
         border:none;
         position: absolute !important;
         /* margin-top: 34px; */
         /* float: right; */
+}
+#btn_export:focus{
+    
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    outline: none;
 }
 #btn_export img{
     width: 90%;
