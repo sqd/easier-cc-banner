@@ -1,11 +1,10 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "Easier CC Banner",
     "description": "Using that stupid CC Banner has never been easier.",
     "version": "1.1",
     "author": "Han You/Kon Aoki",
     "content_scripts": [
-        //main menu
         {
             "matches": [
                 "https://banssbp.coloradocollege.edu/prod/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu"
@@ -20,7 +19,6 @@
                 "style/Montserrat.css"
             ]
         },
-        //student menu
         {
             "matches": [
                 "https://banssbp.coloradocollege.edu/prod/*.P_GenMenu?name=zmenu.P_StuMainMnu"
@@ -47,7 +45,6 @@
                 "style/toggle.css"
             ]
         },
-        //schedule filter
         {
             "matches": [
                 "https://banssbp.coloradocollege.edu/prod/zwckgens.p_proc_term_date"
@@ -58,7 +55,6 @@
                 "filter.js"
             ]
         },
-        //catalog filter
         {
             "matches": [
                 "https://banssbp.coloradocollege.edu/prod/*.p_disp_dyn_ctlg"
@@ -71,7 +67,6 @@
                 "filter.js"
             ]
         },
-        //catalog
         {
             "matches": [
                 "https://banssbp.coloradocollege.edu/prod/*.p_display_courses"
@@ -87,7 +82,6 @@
                 "style/loading-bar.css"
             ]
         },
-        //catalog style
         {
             "matches": [
                 "https://banssbp.coloradocollege.edu/prod/zwskfcls.p_disp_dyn_ctlg"
