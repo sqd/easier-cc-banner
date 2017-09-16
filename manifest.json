@@ -43,7 +43,9 @@
                 "style/loading-bar.css",
                 "style/remodal.css",
                 "style/remodal-default-theme.css",
-                "style/csshake.min.css"
+                "style/csshake.min.css",
+                "style/wickedcss.min.css"
+                
             ]
         },
         //schedule filter

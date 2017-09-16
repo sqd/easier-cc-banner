@@ -121,7 +121,7 @@ function show_modal_window(schedule) {
 
                 $.each(blocks[j], function () {
                     export_arr[j+1].push(`${this['course_no']} (${this['available']}/${this['limit']}, ${this['waitlist']}, ${this['reserved']})`);
-                    var div_container = document.createElement('span');
+                    var div_container = document.createElement('div');
                     var course_code = this['course_no'];
                     div_container.setAttribute('class', 'modal-cell');
                     if(this['available'] == 0) $(div_container).addClass('modal-course-disabled');
@@ -133,8 +133,11 @@ function show_modal_window(schedule) {
                     $(div_container).find('img').css('cursor', 'pointer');
                     if(this['available'] != 0)
                         $(div_container).find(".check-btn").click(function(){
-                            if($(div_container).hasClass('shake')) $(div_container).removeClass('shake').removeClass('shake-constant');
-                            else $(div_container).addClass('shake').addClass('shake-constant');
+
+                            if($(div_container).hasClass('wiggle')) $(div_container).removeClass('wiggle');
+                            else $(div_container).addClass('wiggle');
+                            //if($(div_container).hasClass('leWaterWave')) $(div_container).removeClass('leWaterWave');
+                            //else $(div_container).addClass('leWaterWave');
                         });
                     cell.appendChild(div_container);
                 });
