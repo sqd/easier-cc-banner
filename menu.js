@@ -136,7 +136,8 @@ function show_modal_window(schedule) {
                     var div_container = document.createElement('div');
                     var course_code = this['course_no'];
                     div_container.setAttribute('class', 'modal-cell');
-                    if(this['available'] == 0) $(div_container).addClass('modal-course-disabled');
+                    if(!(window.first_year && this['reserved'] != 0))
+                        if(this['available'] == 0) $(div_container).addClass('modal-course-disabled');
                     var id = guid();
                     div_container.innerHTML = `<div class="modal-course-id">${course_code} </div>
                     <!--div class="modal-course-name">${this['course_title'].replace(/(\[.*\])|(\(.*\))/,'')}<img height=13px width=13px src=${chrome.runtime.getURL('img/outlink.svg')} onclick="javascript:window.open('https://www.coloradocollege.edu/academics/curriculum/catalog/detail.html?courseid=${course_code}');"></div-->
@@ -265,7 +266,12 @@ function on_tool_loaded(){
         $('#cceasier-tool *').prop('disabled', true);
     }
 
-    get_schedule(on_schedule_loaded);
+    get_schedule(schedule => {
+        var schedule_url = null;
+        $('a').each(function(){ if(this.href.toString().endsWith('P_CrseSchdDetl')) schedule_url = this.href; });
+        $.get(schedule_url, html => { window.first_year = html.search('First-Year') != -1; });
+        on_schedule_loaded(schedule);
+    });
 }
 
 function on_schedule_loaded(schedule) {
