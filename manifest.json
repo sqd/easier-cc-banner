@@ -16,7 +16,7 @@
                 "mainmenu.js"
             ],
             "css": [
-                //"style/main.css",
+                "style/main.css",
                 "style/Montserrat.css"
             ]
         },
@@ -38,11 +38,12 @@
                 "menu.js"
             ],
             "css": [
-                //"style/main.css",
+                "style/main.css",
                 "style/Montserrat.css",
                 "style/loading-bar.css",
                 "style/remodal.css",
-                "style/remodal-default-theme.css"
+                "style/remodal-default-theme.css",
+                "style/csshake.min.css"
             ]
         },
         //schedule filter

@@ -107,7 +107,7 @@ function show_modal_window(schedule) {
 
         var export_arr = [[''],['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']];
 
-        var depart2name = { "AN": "Anthropology", "AR": "Arabic", "AH": "Art History", "AS": "Art Studio", "PA": "Asian Studies", "BY": "Biology", "CH": "Chemistry", "CN": "Chinese Language", "CL": "Classics", "CO": "Comparative Literature", "CP": "Computer Science", "DS": "Dance Studio", "DA": "Dance Theory", "EC": "Economics", "ED": "Education", "EN": "English", "EV": "Environmental Program", "FG": "Feminist & Gender Studies", "FM": "Film and Media Studies", "FS": "Film Studies", "FR": "French", "GS": "General Studies", "GY": "Geology", "GR": "German", "HE": "Hebrew", "HY": "History", "HK": "Human Biology and Kinesiology", "IT": "Italian", "JA": "Japanese", "MA": "Mathematics", "MB": "Molecular Biology", "MU": "Music", "BE": "Organismal Biology and Ecology", "PH": "Philosophy", "PC": "Physics", "PS": "Political Science", "PG": "Portuguese", "PY": "Psychology", "RM": "Race, Ethnicity, and Migration", "RE": "Religion", "RU": "Russian", "RS": "Russian & Eurasian Studies", "SO": "Sociology", "SW": "Southwest Studies", "SP": "Spanish", "HS": "Studies in Humanities", "NS": "Studies in Natural Science", "TH": "Theatre" };
+        var depart2name = { "JD": "Jedi-ing", "AN": "Anthropology", "AR": "Arabic", "AH": "Art History", "AS": "Art Studio", "PA": "Asian Studies", "BY": "Biology", "CH": "Chemistry", "CN": "Chinese Language", "CL": "Classics", "CO": "Comparative Literature", "CP": "Computer Science", "DS": "Dance Studio", "DA": "Dance Theory", "EC": "Economics", "ED": "Education", "EN": "English", "EV": "Environmental Program", "FG": "Feminist & Gender Studies", "FM": "Film and Media Studies", "FS": "Film Studies", "FR": "French", "GS": "General Studies", "GY": "Geology", "GR": "German", "HE": "Hebrew", "HY": "History", "HK": "Human Biology and Kinesiology", "IT": "Italian", "JA": "Japanese", "MA": "Mathematics", "MB": "Molecular Biology", "MU": "Music", "BE": "Organismal Biology and Ecology", "PH": "Philosophy", "PC": "Physics", "PS": "Political Science", "PG": "Portuguese", "PY": "Psychology", "RM": "Race, Ethnicity, and Migration", "RE": "Religion", "RU": "Russian", "RS": "Russian & Eurasian Studies", "SO": "Sociology", "SW": "Southwest Studies", "SP": "Spanish", "HS": "Studies in Humanities", "NS": "Studies in Natural Science", "TH": "Theatre" };
         $.each(departs, function (depart, blocks) {
             var cell = modal_table.rows[0].insertCell(-1);
             var depart_name = depart2name[depart];
@@ -122,11 +122,20 @@ function show_modal_window(schedule) {
                 $.each(blocks[j], function () {
                     export_arr[j+1].push(`${this['course_no']} (${this['available']}/${this['limit']}, ${this['waitlist']}, ${this['reserved']})`);
                     var div_container = document.createElement('span');
+                    var course_code = this['course_no'];
                     div_container.setAttribute('class', 'modal-cell');
-                    if(this['available'] == 0) $(div_container).addClass('modal-course-diabled');
-                    div_container.innerHTML = `<div class="modal-course-id">${this['course_no']}</div>
+                    if(this['available'] == 0) $(div_container).addClass('modal-course-disabled');
+                    div_container.innerHTML = `<div class="modal-course-id">${course_code} <img height=13px width=13px class=check-btn src=${chrome.runtime.getURL('img/check.svg')} ></div>
+                    <div class="modal-course-name">${this['course_title'].replace(/(\[.*\])|(\(.*\))/,'')}<img height=13px width=13px src=${chrome.runtime.getURL('img/outlink.svg')} onclick="javascript:window.open('https://www.coloradocollege.edu/academics/curriculum/catalog/detail.html?courseid=${course_code}');"></div>
+                    <div class="modal-course-info1">${/( |^)(\S*)$/.exec(this['instructor'])[2]}</div>
                     <div class="modal-course-info1">${this['available']}/${this['limit']}</div>
                     <div class="modal-course-info2">(${this['waitlist']}, ${this['reserved']})</div>`
+                    $(div_container).find('img').css('cursor', 'pointer');
+                    if(this['available'] != 0)
+                        $(div_container).find(".check-btn").click(function(){
+                            if($(div_container).hasClass('shake')) $(div_container).removeClass('shake').removeClass('shake-constant');
+                            else $(div_container).addClass('shake').addClass('shake-constant');
+                        });
                     cell.appendChild(div_container);
                 });
                 for(i=blocks[j].length;i<max_len;i++) export_arr[j+1].push('');
@@ -232,8 +241,6 @@ function on_tool_loaded(){
     }
 
     get_schedule(on_schedule_loaded);
-
-    $(document.head).append(`<link rel="stylesheet" href="${chrome.runtime.getURL('style/main.css')}">`); //TODO: change injection
 }
 
 function on_schedule_loaded(schedule) {
