@@ -215,6 +215,11 @@ font-size: 13px;
 
 display: inline-block;
 }
+.modal-course-disabled:hover .modal-course-info1{
+    color: red;
+    transition-duration: 0.3s;
+    font-weight: bold;
+}
 .modal-course-info2{
     
 font-size: 13px;
@@ -233,7 +238,11 @@ margin-bottom: 10px;
     height: 100px;
 }
 .modal-course-disabled{
+    transition-duration: 0.3s;
     opacity: 0.3;    
+}
+.modal-course-disabled:hover{
+    opacity: 1.0;    
 }
 #btn_export{
         width: 50px;

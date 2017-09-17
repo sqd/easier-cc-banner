@@ -130,20 +130,19 @@ function show_modal_window(schedule) {
                     var div_container = document.createElement('div');
                     var course_code = this['course_no'];
                     div_container.setAttribute('class', 'modal-cell');
-                    if(!(window.first_year && this['reserved'] != 0))
-                        if(this['available'] == 0) $(div_container).addClass('modal-course-disabled');
                     var id = guid();
                     div_container.innerHTML = `<div class="modal-course-id">${course_code} </div>
                     <!--div class="modal-course-name">${this['course_title'].replace(/(\[.*\])|(\(.*\))/,'')}<img height=13px width=13px src=${chrome.runtime.getURL('img/outlink.svg')} onclick="javascript:window.open('https://www.coloradocollege.edu/academics/curriculum/catalog/detail.html?courseid=${course_code}');"></div-->
                     <div class="modal-course-name"><a href="https://www.coloradocollege.edu/academics/curriculum/catalog/detail.html?courseid=${course_code}" target='_blank'>${this['course_title'].replace(/(\[.*\])|(\(.*\))/,'')}</a></div>
 
-                    <div class="modal-course-info1">${/( |^)(\S*)$/.exec(this['instructor'])[2]}</div>
+                    <div class="modal-course-info2">${/( |^)(\S*)$/.exec(this['instructor'])[2]}</div>
                     <div class="modal-course-info1">${this['available']}/${this['limit']}</div>
                     <div class="modal-course-info2">(${this['waitlist']}, ${this['reserved']})</div>`
                     $(div_container).find('.modal-course-id').css('cursor', 'pointer');
-                    if(this['available'] != 0)
+                    if(!(window.first_year && this['reserved'] != 0) && !(this['available'] != 0))
+                        $(div_container).addClass('modal-course-disabled');
+                    else{
                         $(div_container).find(".modal-course-id").click(function(){
-
                             if($(div_container).hasClass('wiggle')){
                                 $(div_container).removeClass('wiggle');
                                 $(div_container).find(".modal-course-id").removeClass('modal-course-id-selected');
@@ -153,6 +152,7 @@ function show_modal_window(schedule) {
                                 $(div_container).find(".modal-course-id").addClass('modal-course-id-selected');
                             } 
                         });
+                    }
                     cell.appendChild(div_container);
                 });
             }
