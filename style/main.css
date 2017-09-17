@@ -277,3 +277,7 @@ margin-bottom: 10px;
         min-width: 700px;
     max-width: 80%;
 }
+.remodal .remodal-is-opened{
+        max-width: 80% !important;
+    min-width: 700px !important;
+}

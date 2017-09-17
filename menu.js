@@ -161,7 +161,7 @@ function show_modal_window(schedule) {
 
 
     //modal table style
-    
+    $('[data-remodal-id=result_modal]').css('max-width','80%').css('min-width','700px');
     var modalTableTrs = $('#result_modal_table').find('tr');
     //console.log(modalTableTrs);
     var modalTableTds = modalTableTrs.find('td');
