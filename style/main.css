@@ -165,6 +165,7 @@ height:100%;
     /* vertical-align: middle; */
     /* padding-top: 10px; */
     color: black;
+    text-align: center;
 }
 .modal-course-id{
     font-weight: bold;
@@ -187,6 +188,7 @@ height:100%;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
     background-color: #4285f4;
     color:white;
+    -webkit-print-color-adjust:exact;
 }
 .modal-course-name{font-weight: bold;font-size: 15px;line-height: 15px;margin-top: 0px; margin-bottom: 2px; opacity: inherit;}
 .modal-course-name a{
@@ -222,6 +224,7 @@ display: inline-block;
 margin-bottom: 10px;
 }
 .modal-course-title{
+    text-align: center;
     vertical-align: middle;
     font-size: 15px;
     font-weight: bold;

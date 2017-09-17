@@ -192,14 +192,13 @@ function show_modal_window(schedule) {
     //export
     {
         $('#btn_export').click(function(){
-            var html_string = $('<div>').append($('#result_modal_table').clone()).html(); 
-            var w = window.open('about:blank');
-            $.get(chrome.runtime.getURL('style/main.css'), css => {
-                var style = w.document.createElement('style');
-                style.innerHTML = css;
-                w.document.head.appendChild(style);
-                w.document.body.innerHTML = html_string;
-                w.window.print();
+            chrome.storage.local.clear(function(){
+                var html_dup = $('<div>').append($('#result_modal_table').clone());
+                html_dup.find('.modal-course-id-selected').css('background-color', 'black');
+                var html_string = html_dup.html(); 
+                chrome.storage.local.set({'print': html_string}, function(){
+                    window.open(chrome.runtime.getURL('html/print_page.html'));
+                });
             });
         });
     }
