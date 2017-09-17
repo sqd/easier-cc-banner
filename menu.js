@@ -1,3 +1,5 @@
+
+
 //check if need relogin
 if(document.getElementById('UserID')){
     window.location.href = 'https://cas.coloradocollege.edu/cas/login?service=https%3A%2F%2Fbanssop.coloradocollege.edu%3A443%2Fssomanager%2Fc%2FSSB';

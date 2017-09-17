@@ -191,17 +191,17 @@ height:100%;
 .modal-course-name{font-weight: bold;font-size: 15px;line-height: 15px;margin-top: 0px; margin-bottom: 2px; opacity: inherit;}
 .modal-course-name a{
     text-decoration: none;
-    color:black;
+    color:black !important;
 }
 .modal-course-name a:visited{
     cursor:pointer;
     text-decoration: none;
-    color:black;
+    color:black !important;
 }
 .modal-course-name a:active{
     cursor:pointer;
     text-decoration: none;
-    color:black;
+    color:black !important;
 }
 .modal-course-name a:hover{
     cursor:pointer;

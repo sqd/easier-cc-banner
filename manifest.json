@@ -94,6 +94,15 @@
             "css": [
                 "style/loading-bar.css"
             ]
+        },
+        {
+            "matches": [
+                "https://banssbp.coloradocollege.edu/*"
+            ],
+            "run_at": "document_end",
+            "js": [
+                "js/analytics.js"
+            ]
         }
     ],
     "web_accessible_resources": [
@@ -115,5 +124,6 @@
         "http://banssbp.coloradocollege.edu/*",
         "storage"
     ],
-    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+    "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'"
+
 }
