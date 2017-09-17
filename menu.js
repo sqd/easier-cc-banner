@@ -191,6 +191,7 @@ function show_modal_window(schedule) {
     
     //export
     {
+        $('#btn_export').off('click');
         $('#btn_export').click(function(){
             chrome.storage.local.clear(function(){
                 var html_dup = $('<div>').append($('#result_modal_table').clone());
