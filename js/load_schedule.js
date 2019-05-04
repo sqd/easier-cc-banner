@@ -53,7 +53,7 @@ function parse_schedule_html(html){
             };
             if(courses[course_no] == null) courses[course_no] = [];
             courses[course_no].push(course);
-        }catch(e){}
+        }catch(e){console.log(e);}
     return courses;
 }
 
